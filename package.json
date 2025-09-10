@@ -1,0 +1,23 @@
+{
+  "name": "dashboard-photo-frame",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --minify --target=chrome58,firefox57,safari11,edge16 --outfile=dist/dashboard-photo-frame.js",
+    "lint": "eslint src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.15.1",
+  "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "esbuild": "^0.25.9",
+    "eslint": "^9.35.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.43.0"
+  }
+}
