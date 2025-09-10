@@ -2,7 +2,7 @@
   "name": "dashboard-photo-frame",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "esbuild src/index.ts --bundle --minify --target=chrome58,firefox57,safari11,edge16 --outfile=dist/dashboard-photo-frame.js",
     "lint": "eslint src",

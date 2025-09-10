@@ -1,3 +1,5 @@
+import packageJson from "../package.json" with { type: "json" };
+
 interface Config {
   entity: string;
   delayInMinutes: number;
@@ -160,3 +162,5 @@ class DashboardPhotoFrameElement extends HTMLElement {
 }
 
 customElements.define("dashboard-photo-frame", DashboardPhotoFrameElement);
+
+console.info(`Dashboard Photo Frame v${packageJson.version}`);
