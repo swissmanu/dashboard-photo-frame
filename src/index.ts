@@ -13,7 +13,7 @@ interface Schema {
 
 class DashboardPhotoFrameElement extends HTMLElement {
   private frameElement: Optional<HTMLDivElement> = null;
-  private delayTimeoutHandle: Optional<number> = null;
+  private delayTimerHandle: Optional<number> = null;
   private config: Optional<Config> = null;
 
   constructor() {
@@ -81,29 +81,30 @@ class DashboardPhotoFrameElement extends HTMLElement {
     if (!this.frameElement) {
       document.body.addEventListener("click", this.onClickBody);
 
-      const frame = document.createElement("div");
-      frame.style.backgroundColor = "black";
-      frame.style.width = "100vw";
-      frame.style.height = "100vh";
-      frame.style.position = "absolute";
-      frame.style.top = "0";
-      frame.style.left = "0";
-      frame.style.zIndex = "99999";
-      frame.style.backgroundSize = "contain";
-      frame.style.backgroundPosition = "center center";
-      frame.style.backgroundRepeat = "no-repeat";
-      frame.style.pointerEvents = "all";
+      const frameElement = document.createElement("div");
+      frameElement.style.backgroundColor = "black";
+      frameElement.style.width = "100vw";
+      frameElement.style.height = "100vh";
+      frameElement.style.position = "absolute";
+      frameElement.style.top = "0";
+      frameElement.style.left = "0";
+      frameElement.style.zIndex = "99999";
+      frameElement.style.backgroundSize = "contain";
+      frameElement.style.backgroundPosition = "center center";
+      frameElement.style.backgroundRepeat = "no-repeat";
+      frameElement.style.pointerEvents = "all";
 
-      this.frameElement = frame;
-      this.showSlideshow();
+      this.frameElement = frameElement;
+      this.resetDelayTimer();
     }
   }
 
   disconnectedCallback() {
+    document.body.removeEventListener("click", this.onClickBody);
+    this.clearDelayTimer();
     if (this.frameElement) {
       this.frameElement.remove();
     }
-    document.body.removeEventListener("click", this.onClickBody);
   }
 
   setConfig(config: object) {
@@ -133,31 +134,38 @@ class DashboardPhotoFrameElement extends HTMLElement {
     };
   }
 
-  private showSlideshow = () => {
+  private showPhotoFrame = () => {
     if (this.frameElement) {
       document.body.appendChild(this.frameElement);
     }
   };
 
-  private resetSlideshow = () => {
+  private hidePhotoFrame = () => {
     if (this.isPhotoFrameVisible && this.frameElement) {
       this.frameElement.remove();
     }
+  };
 
-    if (this.delayTimeoutHandle) {
-      clearTimeout(this.delayTimeoutHandle);
+  private clearDelayTimer = () => {
+    if (this.delayTimerHandle !== null) {
+      clearTimeout(this.delayTimerHandle);
     }
-    this.delayTimeoutHandle = setTimeout(() => {
-      this.delayTimeoutHandle = null;
-      this.showSlideshow();
+  };
+
+  private resetDelayTimer = () => {
+    this.clearDelayTimer();
+    this.delayTimerHandle = setTimeout(() => {
+      this.delayTimerHandle = null;
+      this.showPhotoFrame();
     }, this.delayInMilliseconds);
   };
 
   private onClickBody = (e: MouseEvent) => {
     if (this.isPhotoFrameVisible) {
       e.stopPropagation();
+      this.hidePhotoFrame();
     }
-    this.resetSlideshow();
+    this.resetDelayTimer();
   };
 }
 
