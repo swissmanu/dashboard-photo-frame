@@ -121,7 +121,7 @@ class DashboardPhotoFrameElement extends HTMLElement {
           : Number.NaN;
     if (Number.isNaN(delayInMinutes) || delayInMinutes <= 0) {
       throw new Error(
-        "delayInMinutes needs to be a positive, non-zero integer"
+        "delayInMinutes needs to be a positive, non-zero integer",
       );
     }
 
