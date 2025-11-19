@@ -83,8 +83,8 @@ class DashboardPhotoFrameElement extends HTMLElement {
 
       const frameElement = document.createElement("div");
       frameElement.style.backgroundColor = "black";
-      frameElement.style.width = "100vw";
-      frameElement.style.height = "100vh";
+      frameElement.style.width = "100%";
+      frameElement.style.height = "100%";
       frameElement.style.position = "absolute";
       frameElement.style.top = "0";
       frameElement.style.left = "0";
